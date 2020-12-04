@@ -6,22 +6,15 @@ const TREE = "#";
 const data = readFileSync(join(__dirname, "input.txt"))
     .toString().split("\n").map(s => [...s]);
 
-const getTreeCount = ( [stepX, stepY]: readonly [ number, number ]) => {
-    const pos = { x: 0, y: 0 };
-    let trees = 0;
+const getTreeCount = (pos: { x: number; y: number; }) => (trees: number) => ([stepX, stepY]: readonly [number, number]): number => {
 
-    while (pos.y < data.length) {
-        const here = data[pos.y][pos.x % data[0].length];
-
-        if (here === TREE) {
-            ++trees
-        };
-
-        pos.x += stepX
-        pos.y += stepY
+    if (pos.y >= data.length) {
+        return trees;
     }
 
-    return trees;
+    const here = data[pos.y][pos.x % data[0].length];
+
+    return getTreeCount({ x: pos.x + stepX, y: pos.y + stepY })(trees + (here === TREE ? 1 : 0))([stepX, stepY]);
 }
 
 const steps = [
@@ -32,7 +25,7 @@ const steps = [
     [1, 2]
 ] as const;
 
-const result = steps.map(getTreeCount).reduce((x, y) => x * y, 1);
+const result = steps.map(getTreeCount({ x: 0, y: 0})(0)).reduce((x, y) => x * y, 1);
 
 console.log(result);
 
