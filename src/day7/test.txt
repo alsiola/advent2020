@@ -1,0 +1,4 @@
+red bags contain 4 blue bags.
+blue bags contain 3 green bags, 1 yellow bag.
+green bags contain 1 purple bag.
+yellow bags contain 5 fjdhask bags.
