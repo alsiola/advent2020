@@ -15,6 +15,8 @@ const isSum = (pre: number[], n: number): boolean => {
     return pre.some((m) => s.has(n - m));
 };
 
-const wrong = ns.slice(25).find((n, i) => !isSum(ns.slice(i, i + 25), n));
+const wrong = ns
+    .slice(PREAMBLE)
+    .find((n, i) => !isSum(ns.slice(i, i + PREAMBLE), n));
 
 console.log(wrong);
