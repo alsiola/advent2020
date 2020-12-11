@@ -9,8 +9,8 @@ const jolts = readFileSync(join(__dirname, "input.txt"))
 
 jolts.unshift(0);
 
-const getNext = (jolt: number): number[] =>
-    jolts.filter((j) => {
+const getNext = (jolt: number, sl: number): number[] =>
+    jolts.slice(sl).filter((j) => {
         const d = j - jolt;
         return d > 0 && d <= 3;
     });
@@ -18,8 +18,8 @@ const getNext = (jolt: number): number[] =>
 const nexts = new Map<number, number[]>();
 const journeys = new Map<number, number>();
 
-jolts.forEach((j) => {
-    nexts.set(j, getNext(j));
+jolts.forEach((j, i) => {
+    nexts.set(j, getNext(j, i));
 });
 
 jolts.reverse().forEach((j) => {
